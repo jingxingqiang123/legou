@@ -13,6 +13,7 @@
 
     <modules>
         <module>legou-registry</module>
+        <module>legou-gateway</module>
     </modules>
 
     <parent>
