@@ -13,11 +13,15 @@
 </template>
 
 <script>
+
+   // treeData="treeData"加载静态数据
+   // import {treeData} from "../../mockDB.js";
   export default {
     name: "category",
     data() {
       return {
         isEdit:true
+        //treeData
       }
     },
     methods: {
