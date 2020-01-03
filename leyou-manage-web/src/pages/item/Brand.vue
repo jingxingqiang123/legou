@@ -109,7 +109,7 @@
             desc: this.pagination.descending// 是否降序
           }
         }).then(resp => { // 这里使用箭头函数
-          this.brands = resp.data.items;
+          this.brands = resp.data.dataObject;
           this.totalBrands = resp.data.total;
           // 完成赋值后，把加载状态赋值为false
           this.loading = false;
