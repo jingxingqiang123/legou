@@ -60,9 +60,10 @@
     methods: {
       submit() {
         // 表单校验
-        if (this.$refs.myBrandForm.validate()) {
-          // 定义一个请求参数对象，通过解构表达式来获取brand中的属性
-          const {categories, letter, ...params} = this.brand;
+        // if (this.$refs.myBrandForm.validate()) {
+        if(this.valid){   // 也可以这样判断
+          // 定义一个请求参数对象，通过解构表达式来获取brand中的属性(categories,letter,name,image)
+          const {categories, letter, ...params} = this.brand; //params:{name,image,cids,letter}
           // 数据库中只要保存分类的id即可，因此我们对categories的值进行处理,只保留id，并转为字符串
           params.cids = categories.map(c => c.id).join(",");
           // 将字母都处理为大写
@@ -72,7 +73,8 @@
           this.$http({
             method: this.isEdit ? 'put' : 'post',
             url: '/item/brand',
-            data: params
+            //data: params
+            data: this.$qs.stringify(params)  //将json对象转化为普通对象
           }).then(() => {
             // 关闭窗口
             this.$emit("close");

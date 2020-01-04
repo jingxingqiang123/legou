@@ -9,6 +9,7 @@ import com.tech.legou.item.service.BrandService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -55,6 +56,23 @@ public class BrandServiceImpl implements BrandService {
         //包装成pageInfo
         PageInfo<Brand> pageInfo = new PageInfo<>(brands);
         // 包装成分页结果集返回  总条数和查询记录
-        return new PageResult<>(pageInfo.getTotal(),pageInfo.getList());
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    /**
+     * 新增品牌
+     *
+     * @param brand
+     * @param cids
+     */
+    @Transactional
+    @Override
+    public void saveBrand(Brand brand, List<Long> cids) {
+        // 新增两张表  新商品表brand  中间表category-brand
+       this.brandMapper.insertSelective(brand);
+        // 新增中间表
+        cids.forEach(cid -> {
+            this.brandMapper.insertCategoryAndBrand(cid, brand.getId());
+        });
     }
 }
