@@ -16,6 +16,7 @@
         <module>legou-gateway</module>
         <module>legou-item</module>
         <module>legou-common</module>
+        <module>leyou-upload</module>
     </modules>
 
     <parent>
