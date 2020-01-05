@@ -12,4 +12,4 @@ zuul:
   prefix: /api
   routes:
     item-service: /item/** #路由到商品的微服务
-    upload-service: /upload/** #路由到文件微服务
+    #upload-service: /upload/** #路由到文件微服务

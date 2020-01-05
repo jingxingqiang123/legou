@@ -51,6 +51,8 @@ public class UploadServiceImpl implements UploadService {
                 log.error("文件内容不合法： {}", originalFilename);
                 return null;
             }
+            // 文件名生成随机数
+
             // 保存服务器
             File fliePath = new File("D:\\leyou\\image\\" + originalFilename);
             file.transferTo(fliePath);
