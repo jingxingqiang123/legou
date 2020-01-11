@@ -1,14 +1,19 @@
 package com.leyou.upload.service.impl;
 
+import com.github.tobato.fastdfs.domain.StorePath;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.leyou.upload.service.UploadService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,12 +24,15 @@ import java.util.List;
 @Service
 public class UploadServiceImpl implements UploadService {
 
+    @Autowired
+    private FastFileStorageClient storageClient;
+
     private static final Logger log = LoggerFactory.getLogger(UploadServiceImpl.class);
 
     /**
      * 支持的图片类型 白名单
      */
-    private static final List<String> CONTENT_TYPE = Arrays.asList("image/gif", "image/jpeg","image/png", "application/x-jpg");
+    private static final List<String> CONTENT_TYPE = Arrays.asList("image/gif", "image/jpeg", "image/png", "application/x-jpg");
 
 
     /**
@@ -54,10 +62,16 @@ public class UploadServiceImpl implements UploadService {
             // 文件名生成随机数
 
             // 保存服务器
-            File fliePath = new File("D:\\leyou\\image\\" + originalFilename);
-            file.transferTo(fliePath);
+            // File fliePath = new File("D:\\leyou\\image\\" + originalFilename);
+            //file.transferTo(fliePath);
+            String ext = StringUtils.substringAfterLast(originalFilename, ".");
+            StorePath storePath = this.storageClient.uploadFile(
+                    file.getInputStream(),
+                    file.getSize(),
+                    ext,
+                    null);
             // 返回url
-            return "http://image.leyou.com/" + originalFilename;
+            return "http://image.leyou.com/" + storePath.getFullPath();
         } catch (IOException e) {
             log.error("服务器内部错误", e);
         }

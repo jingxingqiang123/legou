@@ -15,6 +15,11 @@
 
         <dependencies>
 
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+            </dependency>
+
             <!--使用spring-cloud-starter-netflix-eureka-client-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

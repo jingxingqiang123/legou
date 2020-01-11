@@ -5,7 +5,7 @@ spring:
     name: upload-service
   servlet:
     multipart:
-      max-file-size: 5MB
+      max-file-size: 15MB
 eureka:
   client:
     service-url:
@@ -13,3 +13,13 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 5  #心跳 默认30s
     lease-expiration-duration-in-seconds: 15 #超期时间 90s
+
+
+fdfs:
+  connect-timeout: 601 #连接超时时间
+  so-timeout: 1501 #读取超时时间
+  thumb-image:  #缩略图
+    width: 60
+    height: 60
+  tracker-list:  #tracker地址：你的虚拟机服务器地址+端口（默认是22122）
+    - 192.168.226.130:22122
