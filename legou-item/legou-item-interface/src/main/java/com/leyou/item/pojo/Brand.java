@@ -1,4 +1,4 @@
-package com.tech.legou.item.pojo;
+package com.leyou.item.pojo;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

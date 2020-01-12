@@ -1,4 +1,4 @@
-package com.tech.legou.gatewayconfig;
+package com.leyou.gatewayconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

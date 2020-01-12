@@ -65,11 +65,7 @@ public class UploadServiceImpl implements UploadService {
             // File fliePath = new File("D:\\leyou\\image\\" + originalFilename);
             //file.transferTo(fliePath);
             String ext = StringUtils.substringAfterLast(originalFilename, ".");
-            StorePath storePath = this.storageClient.uploadFile(
-                    file.getInputStream(),
-                    file.getSize(),
-                    ext,
-                    null);
+            StorePath storePath = this.storageClient.uploadFile(file.getInputStream(), file.getSize(), ext, null);
             // 返回url
             return "http://image.leyou.com/" + storePath.getFullPath();
         } catch (IOException e) {

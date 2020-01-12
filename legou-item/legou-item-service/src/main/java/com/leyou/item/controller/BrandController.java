@@ -1,8 +1,9 @@
-package com.tech.legou.item.controller;
+package com.leyou.item.controller;
 
+import com.leyou.item.pojo.Brand;
+import com.leyou.item.service.BrandService;
 import com.leyou.common.vo.PageResult;
-import com.tech.legou.item.pojo.Brand;
-import com.tech.legou.item.service.BrandService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,4 +60,19 @@ public class BrandController {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    /**
+     * 品牌修改
+     * @param brand
+     * @param cids
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<Void> updateBrand(Brand brand,@RequestParam("cids") List<Long> cids){
+        this.brandService.updateBrand(brand,cids);
+        return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+
+
 }

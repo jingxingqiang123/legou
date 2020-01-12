@@ -1,4 +1,4 @@
-package com.tech.legou;
+package com.leyou;
 
         import org.springframework.boot.SpringApplication;
         import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,7 @@ package com.tech.legou;
 /**
  * Created by jingxingqiang on 2019/12/22 19:14
  */
-@MapperScan("com.tech.legou.item.mapper")
+@MapperScan("com.leyou.item.mapper")
 @SpringBootApplication
 @EnableDiscoveryClient
 public class LegouItemApplication {

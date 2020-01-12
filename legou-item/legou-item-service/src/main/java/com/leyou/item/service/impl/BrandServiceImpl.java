@@ -1,11 +1,11 @@
-package com.tech.legou.item.service.impl;
+package com.leyou.item.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.leyou.common.vo.PageResult;
-import com.tech.legou.item.mapper.BrandMapper;
-import com.tech.legou.item.pojo.Brand;
-import com.tech.legou.item.service.BrandService;
+import com.leyou.item.mapper.BrandMapper;
+import com.leyou.item.pojo.Brand;
+import com.leyou.item.service.BrandService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,10 +69,28 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void saveBrand(Brand brand, List<Long> cids) {
         // 新增两张表  新商品表brand  中间表category-brand
-       this.brandMapper.insertSelective(brand);
+        this.brandMapper.insertSelective(brand);
         // 新增中间表
         cids.forEach(cid -> {
             this.brandMapper.insertCategoryAndBrand(cid, brand.getId());
         });
     }
+
+    /**
+     * 品牌更新
+     * @param brand
+     * @param cids
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateBrand(Brand brand, List<Long> cids) {
+        // 修改品牌信息
+        this.brandMapper.updateByPrimaryKeySelective(brand);
+
+        //维护品牌和分类中间表
+        for (Long cid : cids) {
+            System.out.println("cid:"+cid+",bid:"+brand.getId());
+            this.brandMapper.insertCategoryAndBrand(cid, brand.getId());
+        }
+}
 }
